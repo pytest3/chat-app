@@ -1,6 +1,5 @@
-import { Router } from "express";
-
-const router = Router();
+const express = require("express");
+const router = express.Router();
 
 router.get("/", async (req, res) => {
   const user = await req.context.models.user.findOne({
@@ -9,4 +8,4 @@ router.get("/", async (req, res) => {
   res.send(user);
 });
 
-export default router;
+module.exports = router;

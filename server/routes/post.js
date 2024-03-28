@@ -1,6 +1,5 @@
-import { Router } from "express";
-
-const router = Router();
+const express = require("express");
+const router = express.Router();
 
 router.get("/", async (req, res) => {
   const posts = await req.context.models.post.findAll();
@@ -45,4 +44,4 @@ router.delete("/:postId", async (req, res) => {
 //   res.send(req.context.models.posts);
 // });
 
-export default router;
+module.exports = router;

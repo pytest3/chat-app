@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "babel-node src/index.js",
-    "start": "nodemon --exec babel-node index.js",
+    "start": "nodemon index.js",
     "deploy": "NODE_ENV=production node index.js",
     "restart": "npx sequelize-cli db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all && npm run start"
   },
@@ -17,6 +17,7 @@
     "@babel/core": "^7.23.9",
     "@babel/node": "^7.23.9",
     "@babel/preset-env": "^7.23.9",
+    "@flydotio/dockerfile": "^0.5.4",
     "nodemon": "^3.0.3",
     "sequelize-cli": "^6.6.2"
   },

@@ -1,7 +1,6 @@
-import { Router } from "express";
-import { capitalizeName } from "../utils";
-
-const router = Router();
+const express = require("express");
+const router = express.Router();
+const capitalizeName = require("../utils");
 
 // list all users
 router.get("/", async (req, res) => {
@@ -75,4 +74,4 @@ router.get("/:id/conversations", async (req, res) => {
   res.send(conversations);
 });
 
-export default router;
+module.exports = router;

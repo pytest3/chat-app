@@ -1,11 +1,13 @@
-import "dotenv/config";
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
-import models from "./db/models";
-import routes from "./routes";
-import http from "http";
-import { Server } from "socket.io";
+const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const models = require("./db/models");
+const routes = require("./routes");
+const http = require("http");
+const { Server } = require("socket.io");
+
+const host = "0.0.0.0";
+const port = process.env.PORT || 3000;
 
 const { auth } = require("express-oauth2-jwt-bearer");
 // auth is a express-oauth2-jwt-bearer
@@ -149,6 +151,10 @@ app.use((req, res) => {
   res.status(404).send("Opps, route not found");
 });
 
-server.listen(process.env.PORT, () => {
-  `Express app listening on port: ${process.env.PORT}`;
+server.listen(port, "::", (err) => {
+  if (err) {
+    console.log("Error listening: ", err);
+    return;
+  }
+  `Express app listening on port: ${port}`;
 });
