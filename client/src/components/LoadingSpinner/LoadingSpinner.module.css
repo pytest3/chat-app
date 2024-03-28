@@ -1,0 +1,32 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-content: center;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0) scale(1);
+  }
+
+  25% {
+    transform: rotate(1turn) scale(1);
+  }
+
+  50% {
+    transform: rotate(1turn) scale(1.5);
+  }
+
+  75% {
+    transform: rotate(0) scale(1.5);
+  }
+
+  100% {
+    transform: rotate(0) scale(1);
+  }
+}
+
+.spinner {
+  animation: 1700ms rotate infinite linear both;
+}
