@@ -12,7 +12,6 @@ WORKDIR /app
 # Set production environment
 ENV NODE_ENV="production"
 
-
 # Throw-away build stage to reduce size of final image
 FROM base as build
 
@@ -27,18 +26,22 @@ RUN npm ci
 # Copy application code
 COPY --link . .
 
-
 # Final stage for app image
 FROM base
 
 # Copy built application
 COPY --from=build /app /app
 
-# Setup sqlite3 on a separate volume
-RUN mkdir -p /data
-VOLUME /data
+# Copy release script
+COPY release.sh /release.sh
+
+# Ensure release script is executable
+# RUN chmod +x /release.sh
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-ENV DATABASE_URL="file:///data/sqlite.db"
+# ENV DATABASE_URL = postgres://postgres:T4xXm1Zy1nIjIvX@db:5432/social_media
+ENV NODE_ENV production
+# ENV PATH /usr/local/node/bin:$PATH
 CMD [ "npm", "run", "deploy" ]
+

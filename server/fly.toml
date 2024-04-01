@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for chat-app-server on 2024-03-28T16:42:40+08:00
+# fly.toml app configuration file generated for chat-app-server on 2024-04-01T12:50:52+08:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -8,8 +8,21 @@ primary_region = 'sin'
 
 [build]
 
+[deploy]
+  release_command = 'sh ./release.sh'
+
 [env]
+  AUTH0_AUTH_AUDIENCE = 'https://chat/api2'
+  AUTH0_DOMAIN = 'https://dev-codedigger.jp.auth0.com/'
+  AUTH0_JWKS_ENDPOINT = 'https://dev-codedigger.jp.auth0.com/.well-known/jwks.json'
+  FRONTEND_DOMAIN = 'http://localhost:3001'
+  NODE_ENV = 'production'
   PORT = '3000'
+  PROD_DB_DIALECT = 'postgres'
+  PROD_DB_HOSTNAME = 'chat-app-server-db.internal'
+  PROD_DB_NAME = 'chat-app-server-db'
+  PROD_DB_PASSWORD = 'q6PM6UbzQtiNlEO'
+  PROD_DB_USERNAME = 'postgres'
 
 [[mounts]]
   source = 'data'

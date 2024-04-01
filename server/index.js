@@ -1,15 +1,16 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const models = require("./db/models");
 const routes = require("./routes");
 const http = require("http");
+const { auth } = require("express-oauth2-jwt-bearer");
 const { Server } = require("socket.io");
 
 const host = "0.0.0.0";
 const port = process.env.PORT || 3000;
 
-const { auth } = require("express-oauth2-jwt-bearer");
 // auth is a express-oauth2-jwt-bearer
 // it is configured with API identifier (audience) and
 // domain (issuerBaseUrl)
@@ -31,6 +32,9 @@ const io = new Server(server, {
 const checkJwt = auth({
   audience: process.env.AUTH0_AUTH_AUDIENCE,
   issuerBaseURL: process.env.AUTH0_DOMAIN,
+  tokenSigningAlg: "RS256",
+  issuer: process.env.AUTH0_DOMAIN,
+  jwksUri: process.env.AUTH0_JWKS_ENDPOINT,
 });
 
 app.use(cors());
@@ -151,7 +155,7 @@ app.use((req, res) => {
   res.status(404).send("Opps, route not found");
 });
 
-server.listen(port, "::", (err) => {
+server.listen(port, host, (err) => {
   if (err) {
     console.log("Error listening: ", err);
     return;

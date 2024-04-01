@@ -18,8 +18,7 @@
     "@babel/node": "^7.23.9",
     "@babel/preset-env": "^7.23.9",
     "@flydotio/dockerfile": "^0.5.4",
-    "nodemon": "^3.0.3",
-    "sequelize-cli": "^6.6.2"
+    "nodemon": "^3.0.3"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -29,10 +28,12 @@
     "express-jwt": "^8.4.1",
     "express-oauth2-jwt-bearer": "^1.6.0",
     "jwt-decode": "^4.0.0",
+    "mysql2": "^3.9.3",
     "pg": "^8.11.3",
     "sequelize": "^6.37.0",
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "sequelize-cli": "^6.6.2"
   }
 }

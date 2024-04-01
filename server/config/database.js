@@ -1,4 +1,5 @@
-require("dotenv").config({ path: __dirname + "/../.env" });
+// we will need to tell the CLI how to connect to the database
+// by providing db credentials here
 
 module.exports = {
   development: {
@@ -9,18 +10,25 @@ module.exports = {
     dialect: process.env.DIALECT,
     logging: false,
   },
-  test: {
-    username: "root",
-    password: null,
-    database: "database_test",
-    host: "127.0.0.1",
-    dialect: "mysql",
-  },
   production: {
-    username: "root",
-    password: null,
-    database: "database_production",
-    host: "127.0.0.1",
-    dialect: "mysql",
+    username: process.env.PROD_DB_USERNAME,
+    password: process.env.PROD_DB_PASSWORD,
+    // database name
+    database: process.env.PROD_DB_NAME,
+    // database url
+    host: process.env.PROD_DB_HOSTNAME,
+    dialect: process.env.PROD_DB_DIALECT || "postgres",
+    logging: true, // Enable logging
   },
 };
+
+console.log("production config lol", {
+  username: process.env.PROD_DB_USERNAME,
+  password: process.env.PROD_DB_PASSWORD,
+  // database name
+  database: process.env.PROD_DB_NAME,
+  // database url
+  host: process.env.PROD_DB_HOSTNAME,
+  dialect: process.env.PROD_DB_DIALECT || "postgres",
+  logging: true, // Enable logging
+});

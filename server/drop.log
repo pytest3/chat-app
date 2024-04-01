@@ -1,0 +1,15 @@
+
+[4mSequelize CLI [Node: 20.7.0, CLI: 6.6.2, ORM: 6.37.0][24m
+
+production config lol {
+  username: undefined,
+  password: undefined,
+  database: undefined,
+  host: undefined,
+  dialect: 'postgres',
+  logging: true
+}
+Loaded configuration file "config/database.js".
+Using environment "development".
+
+
