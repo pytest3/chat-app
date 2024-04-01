@@ -16,8 +16,6 @@ export function useAllUsers() {
           },
         });
         const data = await res.json();
-
-        console.log("claire", data);
         setUsers(data);
       } catch (e) {
         console.log(e.message);

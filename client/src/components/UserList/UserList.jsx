@@ -11,7 +11,7 @@ const UserList = React.memo(function UserList() {
   const { user: currentUser } = useAuth0();
   const { onlineUsers } = React.useContext(SocketContext);
   const { createConversation, status } = useCreateConversation();
-  console.log("UserList component rendered claire", onlineUsers);
+  console.log("UserList component rendered", onlineUsers);
 
   async function handleClick(selectedPerson) {
     const convoId = await createConversation(selectedPerson);
@@ -19,7 +19,6 @@ const UserList = React.memo(function UserList() {
       "selected-user",
       JSON.stringify(selectedPerson)
     );
-    console.log("joining", convoId);
     socket.emit("join", { roomId: convoId });
     navigate(`/conversation/${convoId}`);
   }

@@ -8,13 +8,15 @@ import useGetSelectedUser from "../../hooks/useGetSelectedUser";
 import { SocketContext } from "../SocketContextProvider/SocketContextProvider";
 import { ChevronLeft } from "lucide-react";
 import styles from "./conversation.module.css";
+import { CurrentUserContext } from "../CurrentUserContextProvider";
 
-export default function Conversation() {
+const Conversation = React.memo(function Conversation() {
   let { convoId } = useParams();
   const { serverMessagesWithDetails } = useFetchServerConversationData(convoId);
   const [messages, setMessages] = React.useState([]);
   const selectedUser = useGetSelectedUser();
   const { onlineUsers } = React.useContext(SocketContext);
+  const currentUser = React.useContext(CurrentUserContext);
 
   const shownMessages = messages.map((message) => {
     if (message.fromSelf === true && message.toUser === selectedUser.username)
@@ -29,7 +31,8 @@ export default function Conversation() {
       );
     if (
       message.fromSelf === false &&
-      message.fromUser === selectedUser.username
+      message.fromUser === selectedUser.username &&
+      message.fromUser !== currentUser.username
     )
       return (
         <div
@@ -45,7 +48,6 @@ export default function Conversation() {
   // register 'on private conversation' socketIO handler
   React.useEffect(() => {
     function handler({ text, from }) {
-      console.log("dd receiving message", text, from);
       const fromUserName = onlineUsers.find(
         (i) => i.socketId === from
       ).username;
@@ -54,18 +56,16 @@ export default function Conversation() {
         text,
         fromSelf: false,
       };
-      setMessages((messages) => [...messages, newMessage]);
+      setMessages((currMessages) => [...currMessages, newMessage]);
     }
     socket.on("private conversation", handler);
     return () => socket.off("private conversation", handler);
   }, [onlineUsers, serverMessagesWithDetails]);
 
-  // load server messages into messages array
+  // load server messages into messages array upon connection
   React.useEffect(() => {
     if (!serverMessagesWithDetails) return;
-    console.log("loading server messages");
     setMessages(serverMessagesWithDetails);
-    console.log("cc", serverMessagesWithDetails);
   }, [serverMessagesWithDetails]);
 
   // Store room id in local storage
@@ -77,7 +77,12 @@ export default function Conversation() {
     return () => socket.off("roomId", handler);
   }, []);
 
-  if (!serverMessagesWithDetails || !selectedUser || !onlineUsers) {
+  if (
+    !serverMessagesWithDetails ||
+    !selectedUser ||
+    !onlineUsers ||
+    !currentUser
+  ) {
     return <LoadingSpinner />;
   }
 
@@ -94,4 +99,6 @@ export default function Conversation() {
       {shownMessages}
     </div>
   );
-}
+});
+
+export default Conversation;

@@ -14,7 +14,6 @@ export default function useCreateConversation() {
   console.log("useCreateConversation ran, user:", user.sub);
 
   async function createConversation(selectedPerson) {
-    console.log("claire", selectedPerson);
     try {
       setStatus({ ...status, isLoading: true, isError: false });
       const token = await getAccessTokenSilently();
