@@ -5,7 +5,11 @@ export default function LoginButton(props) {
   const { loginWithRedirect } = useAuth0();
 
   async function handleClick() {
-    loginWithRedirect();
+    loginWithRedirect({
+      appState: {
+        returnTo: "/login",
+      },
+    });
   }
 
   return <button {...props} onClick={handleClick}></button>;

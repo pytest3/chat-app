@@ -3,8 +3,6 @@ import LoginButton from "../../components/LoginButton";
 import SignupButton from "../../components/SignupButton";
 
 export default function LandingPage() {
-  console.log("LandingPage component rendered");
-
   return (
     <div>
       <h1>Chat app</h1>
