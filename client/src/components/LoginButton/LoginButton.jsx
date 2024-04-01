@@ -6,9 +6,9 @@ export default function LoginButton(props) {
 
   async function handleClick() {
     loginWithRedirect({
-      appState: {
-        returnTo: "/login",
-      },
+      // appState: {
+      //   returnTo: "/login",
+      // },
     });
   }
 
