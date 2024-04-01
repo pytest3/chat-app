@@ -23,6 +23,7 @@ export default function SocketContextProvider() {
 
   React.useEffect(() => {
     if (!user) return; // insufficient check as some user obj properties might be missing
+    console.log("Newly logged in user details", user);
     socket.auth = { username: user.username, sub: user.sub, roomId: userRoom };
     try {
       socket.connect();
