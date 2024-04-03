@@ -30,6 +30,8 @@ export default function Auth0ProviderLayout() {
           "read:current_user update:current_user_metadata openid profile email username",
       }}
       onRedirectCallback={onRedirectCallback}
+      useRefreshTokens
+      cacheLocation="localstorage"
     >
       <Outlet />
     </Auth0Provider>
