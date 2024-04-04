@@ -6,12 +6,12 @@ import { Outlet } from "react-router-dom";
 export const SocketContext = React.createContext();
 
 export default function SocketContextProvider() {
-  const [isSocketConnected, setIsSocketConnected] = React.useState(false);
   const { isAuthenticated, user, isLoading } = useAuth0();
-  const [onlineUsers, setOnlineUsers] = React.useState([]);
+  const [onlineUsers, setOnlineUsers] = React.useState();
   const [userRoom, setUserRoom] = React.useState();
 
   console.log("SocketContextProvider component rendered");
+  console.log("aa Socket instance created:", socket);
 
   // Retrieve room id on refresh
   React.useEffect(() => {
@@ -26,22 +26,23 @@ export default function SocketContextProvider() {
     console.log("Newly logged in user details", user);
     socket.auth = { username: user.username, sub: user.sub, roomId: userRoom };
     try {
+      console.log("socket reconnecting...");
       socket.connect();
     } catch (e) {
       console.log(e, e.message);
     }
-    setIsSocketConnected(true);
     return () => {
       socket.disconnect();
-      setIsSocketConnected(false);
     };
   }, [user, isAuthenticated, isLoading, userRoom]);
 
+  // update user list on connect / disconnect
   React.useEffect(() => {
     function handler(users) {
       users.forEach((user) => {
         user.self = user.socketId === socket.id;
       });
+      console.log("users", users);
       users = users.sort((a, b) => {
         if (a.self) return -1;
         if (b.self) return 1;
@@ -54,6 +55,7 @@ export default function SocketContextProvider() {
     return () => socket.off("users", handler);
   }, []);
 
+  // other user connection event
   React.useEffect(() => {
     function userConnectedHandler(user) {
       const existingUser = onlineUsers.find(
@@ -61,6 +63,7 @@ export default function SocketContextProvider() {
       );
       if (!existingUser) {
         setOnlineUsers((onlineUsers) => [...onlineUsers, user]);
+        console.log("to do: add some notification");
       }
     }
     socket.on("user connected", userConnectedHandler);
@@ -69,11 +72,10 @@ export default function SocketContextProvider() {
 
   const value = React.useMemo(() => {
     return {
-      user,
       onlineUsers,
-      isSocketConnected,
+      setOnlineUsers,
     };
-  }, [user, onlineUsers, isSocketConnected]);
+  }, [onlineUsers, setOnlineUsers]);
 
   if (isLoading || !isAuthenticated) return;
 

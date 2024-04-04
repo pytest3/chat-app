@@ -1,17 +1,17 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { SocketContext } from "../components/SocketContextProvider/SocketContextProvider";
 import { generateConversationId } from "../helpers";
+import { CurrentUserContext } from "../components/CurrentUserContextProvider";
 
 export default function useCreateConversation() {
-  const { user } = React.useContext(SocketContext);
+  const currentUser = React.useContext(CurrentUserContext);
   const { getAccessTokenSilently } = useAuth0();
   const [status, setStatus] = React.useState({
     isLoading: false,
     isError: false,
   });
 
-  console.log("useCreateConversation ran, user:", user.sub);
+  console.log("useCreateConversation ran");
 
   async function createConversation(selectedPerson) {
     try {
@@ -27,18 +27,18 @@ export default function useCreateConversation() {
           },
           body: JSON.stringify({
             username: selectedPerson.username,
-            convoName: generateConversationId(selectedPerson.sub, user.sub),
-            convoId: generateConversationId(selectedPerson.sub, user.sub),
+            convoName: generateConversationId(
+              selectedPerson.sub,
+              currentUser.sub
+            ),
+            convoId: generateConversationId(
+              selectedPerson.sub,
+              currentUser.sub
+            ),
           }),
         }
       );
       const { convoId } = await res.json();
-      // socket.emit("conversation", {
-      //   id: convoId,
-      //   name: conversationName || participants[0].name,
-      //   participants,
-      //   to: participantId, // socket id
-      // });
       setStatus({ ...status, isLoading: false });
       return convoId;
     } catch (e) {

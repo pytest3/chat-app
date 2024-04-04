@@ -5,13 +5,18 @@ import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner.jsx";
 import { useAuth0 } from "@auth0/auth0-react";
 import socket from "../../socket.js";
+import useFetchAllUsers from "../../hooks/useFetchAllUsers.jsx";
 
 const UserList = React.memo(function UserList() {
   const navigate = useNavigate();
   const { user: currentUser } = useAuth0();
   const { onlineUsers } = React.useContext(SocketContext);
   const { createConversation, status } = useCreateConversation();
+  const { allUsers } = useFetchAllUsers();
+  const onlineUsersAuthIds = onlineUsers.map((i) => i.sub);
+
   console.log("UserList component rendered", onlineUsers);
+  console.log("aa Socket instance in userlist:", socket);
 
   async function handleClick(selectedPerson) {
     const convoId = await createConversation(selectedPerson);
@@ -56,10 +61,35 @@ const UserList = React.memo(function UserList() {
                   ? `${username} (yourself)`
                   : username}
               </div>
+              <div>{JSON.stringify(user, null, 4)}</div>
             </li>
           );
         })}
       </ul>
+      <h2>Offline users</h2>
+      {/* <div>++++++online users +++++</div>
+      {JSON.stringify(onlineUsers, null, 4)}
+      <div>++++++all users +++++</div>
+      {JSON.stringify(allUsers, null, 4)} */}
+      {allUsers
+        .filter((i) => !onlineUsersAuthIds.includes(i.auth0_id))
+        .map((user) => {
+          return (
+            <li
+              key={user.id}
+              onClick={() => {
+                handleClick({
+                  username: user.name,
+                  // TODO remove socketId as not used
+                  socketId: "",
+                  sub: user.auth0_id,
+                });
+              }}
+            >
+              {user.name}
+            </li>
+          );
+        })}
     </>
   );
 });

@@ -23,7 +23,10 @@ const server = http.createServer(app);
 const io = new Server(server, {
   connectionStateRecovery: {},
   cors: {
-    origin: process.env.FRONTEND_DOMAIN,
+    origin:
+      process.env.NODE_ENV === "development"
+        ? process.env.DEV_FRONTEND_DOMAIN
+        : process.env.FRONTEND_DOMAIN,
   },
 });
 
@@ -69,6 +72,7 @@ io.on("connection", (socket) => {
   // instantiate online users array
   for (let [id, socket] of io.of("/").sockets) {
     const existingUser = users.find((i) => i.username === socket.username);
+    console.log("users", users);
     if (!existingUser) {
       users.push({
         socketId: id, // socket id
@@ -112,6 +116,15 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("user disconnected,", socket.id);
     users = users.filter((user) => user.socketId !== socket.id);
+    // users = users.map((user) => {
+    //   if (user.socketId === socket.id) {
+    //     return {
+    //       ...user,
+    //       connected: false,
+    //     };
+    //   }
+    //   return user;
+    // });
     console.log("remaining users", users);
     io.emit("users", users);
     socket.disconnect();
@@ -132,9 +145,9 @@ io.on("connection", (socket) => {
   //   io.emit("conversation", conversation);
   // });
 
-  // socket.onAny((event, ...args) => {
-  //   console.log(event, args);
-  // });
+  socket.onAny((event, ...args) => {
+    console.log(event, args);
+  });
 });
 
 io.engine.on("connection_error", (err) => {

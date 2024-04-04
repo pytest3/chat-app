@@ -19,8 +19,6 @@ export default function CurrentUserContextProvider() {
     return;
   }
 
-  console.log("current user 3,", user);
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Outlet />
