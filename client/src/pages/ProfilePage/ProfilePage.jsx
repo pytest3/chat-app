@@ -9,19 +9,20 @@ export default function ProfilePage() {
 
   return (
     <div>
-      <h2>Profile Page</h2>
-      <div>
+      <h2 className={styles.header}>Profile Page</h2>
+      {/* <div>
         <h3>User sub</h3>
         <span>{user?.sub}</span>
-      </div>
-      <div>
-        <h3>Name</h3>
-        <span>{user?.username}</span>
-      </div>
-
-      <div>
-        <h3>Email</h3>
-        <span>{user?.email}</span>
+      </div> */}
+      <div className={styles.profileInfo}>
+        <div>
+          <h3>Name</h3>
+          <span>{user?.username}</span>
+        </div>
+        <div>
+          <h3>Email</h3>
+          <span>{user?.email}</span>
+        </div>
       </div>
     </div>
   );

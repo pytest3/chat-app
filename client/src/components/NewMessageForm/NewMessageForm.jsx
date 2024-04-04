@@ -3,6 +3,8 @@ import React from "react";
 import socket from "../../socket";
 import { useParams } from "react-router-dom";
 import useGetSelectedUser from "../../hooks/useGetSelectedUser";
+import styles from "./NewMessageForm.module.css";
+import { Send } from "lucide-react";
 
 export default function NewMessageForm({ messages, setMessages, ...props }) {
   const [text, setText] = React.useState("");
@@ -60,7 +62,7 @@ export default function NewMessageForm({ messages, setMessages, ...props }) {
   }
 
   return (
-    <form {...props} onSubmit={handleSubmit}>
+    <form {...props} onSubmit={handleSubmit} className={styles.form}>
       <label htmlFor="message"></label>
       <input
         type="text"
@@ -69,7 +71,9 @@ export default function NewMessageForm({ messages, setMessages, ...props }) {
         value={text}
         onChange={handleInput}
       />
-      <button>Send</button>
+      <button className={styles.sendArrow}>
+        <Send />
+      </button>
     </form>
   );
 }

@@ -87,16 +87,20 @@ const Conversation = React.memo(function Conversation() {
   }
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <nav className={styles.navbar}>
-        <Link to="/login/home">
-          <ChevronLeft />
+        <Link to="/login/home" className={styles.backButton}>
+          <ChevronLeft color={`var(--color-primary)`} />
         </Link>
         <h3>{selectedUser.username}</h3>
       </nav>
       {/* <div>{JSON.stringify(messages, null, 4)}</div> */}
-      <NewMessageForm messages={messages} setMessages={setMessages} />
-      {shownMessages}
+      <div className={styles.messages}>{shownMessages}</div>
+      <NewMessageForm
+        className={styles.newMessageForm}
+        messages={messages}
+        setMessages={setMessages}
+      />
     </div>
   );
 });

@@ -1,7 +1,9 @@
 .button {
   border-radius: 8px;
-  border: none;
+  border: 1px solid white;
   padding: 8px 0px;
+  background-color: transparent;
+  color: white;
   font-weight: 700;
 
   @media (min-width: 550px) {

@@ -1,5 +1,21 @@
+.wrapper {
+  height: 100dvh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 20px;
+  grid-template-areas:
+    "content"
+    "footer";
+  padding: 24px;
+}
+
 .nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  grid-area: "footer";
+}
+
+.icon {
+  color: white;
 }

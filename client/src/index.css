@@ -1,98 +1,32 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-/*
-  1. Use a more-intuitive box-sizing model.
-*/
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
-/*
-  2. Remove default margin
-*/
+
 * {
   margin: 0;
+
+  /* remove tap rectangle */
+  -webkit-tap-highlight-color: transparent;
 }
-/*
-  Typographic tweaks!
-  3. Add accessible line-height
-  4. Improve text rendering
-*/
+html {
+  /* scrollbar-gutter: stable; */
+  /* prevent horizontal scroll when applying translateX to rightActions on navbar */
+  /* overflow-x: hidden; */
+}
+
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  margin: 0;
+  overflow-x: hidden; /* prevent horizontal scroll when applying translateX to rightActions on navbar */
+  background-color: var(--color-background);
+  color: var(--color-paragraph);
+  font-family: "Figtree", sans-serif;
+  height: 100dvh;
 }
-/*
-  5. Improve media defaults
-*/
+
 img,
 picture,
 video,
@@ -101,18 +35,14 @@ svg {
   display: block;
   max-width: 100%;
 }
-/*
-  6. Remove built-in form typography styles
-*/
+
 input,
 button,
 textarea,
 select {
   font: inherit;
 }
-/*
-  7. Avoid text overflows
-*/
+
 p,
 h1,
 h2,
@@ -122,15 +52,128 @@ h5,
 h6 {
   overflow-wrap: break-word;
 }
-/*
-  8. Create a root stacking context
-*/
+
 #root,
 #__next {
   isolation: isolate;
 }
 
+::-webkit-calendar-picker-indicator {
+  filter: invert(90%) sepia(10%) saturate(149%) hue-rotate(169deg)
+    brightness(95%) contrast(89%);
+  /* height: 20px;
+  width: 20px; */
+}
+
+:root {
+  --max-width: 450px;
+
+  --color-background: #172c66;
+  --color-paragraph: #fef6e4;
+
+  --color-primary: #f582ae;
+
+  /* --color-primary: #f2ecec; */
+  --color-primary-2: rgb(217, 214, 212);
+  --color-secondary: #b07bac;
+  --color-secondary-2: #d1b4cc;
+
+  --shadow-color: 15deg 41% 48%;
+  --shadow-elevation-low: 0.3px 0.5px 0.5px hsl(var(--shadow-color) / 0.73),
+    0.4px 0.7px 0.7px -2.3px hsl(var(--shadow-color) / 0.51),
+    1.1px 2.2px 2px -4.6px hsl(var(--shadow-color) / 0.29);
+  --shadow-elevation-medium: 0.3px 0.5px 0.5px hsl(var(--shadow-color) / 0.77),
+    0.5px 1px 0.9px -1.5px hsl(var(--shadow-color) / 0.59),
+    1.8px 3.7px 3.3px -3.1px hsl(var(--shadow-color) / 0.42),
+    5.4px 10.8px 9.8px -4.6px hsl(var(--shadow-color) / 0.24);
+  --shadow-elevation-high: 0.3px 0.5px 0.5px hsl(var(--shadow-color) / 0.71),
+    0.5px 1.1px 1px -0.7px hsl(var(--shadow-color) / 0.63),
+    1.3px 2.5px 2.3px -1.3px hsl(var(--shadow-color) / 0.55),
+    2.9px 5.8px 5.3px -2px hsl(var(--shadow-color) / 0.47),
+    6px 12px 10.9px -2.6px hsl(var(--shadow-color) / 0.39),
+    11px 22px 19.9px -3.3px hsl(var(--shadow-color) / 0.31),
+    18.4px 36.8px 33.3px -3.9px hsl(var(--shadow-color) / 0.22),
+    28.8px 57.5px 52.1px -4.6px hsl(var(--shadow-color) / 0.14);
+
+  --color-gray-1: #f8f9faff;
+  --color-gray-2: #e9ecefff;
+  --color-gray-3: #dee2e6ff;
+  --color-gray-4: #ced4daff;
+  --color-gray-5: #adb5bdff;
+  --color-gray-6: #6c757dff;
+  --color-gray-7: #495057ff;
+  --color-gray-8: #343a40ff;
+  --color-gray-9: #212529ff;
+
+  --color-blue-9: #03045eff;
+  --color-blue-8: #023e8aff;
+  --color-blue-7: #0077b6ff;
+  --color-blue-6: #0096c7ff;
+  --color-blue-5: #00b4d8ff;
+  --color-blue-4: #48cae4ff;
+  --color-blue-3: #90e0efff;
+  --color-blue-2: #ade8f4ff;
+  --color-blue-1: #caf0f8ff;
+
+  --color-red-1: #fffcfc;
+  --color-red-2: #fff7f7;
+  --color-red-3: #feebec;
+  --color-red-4: #ffdbdc;
+  --color-red-5: #ffcdce;
+  --color-red-6: #fdbdbe;
+  --color-red-7: #f4a9aa;
+  --color-red-8: #eb8e90;
+  --color-red-9: #e5484d;
+  --color-red-10: #dc3e42;
+  --color-red-11: #ce2c31;
+  --color-red-12: #641723;
+
+  --tablet: 550px;
+  --laptop: 1100px;
+  --desktop: 1500px;
+}
+
+td {
+  padding: 0px;
+}
+
+html,
+body,
+#root, /* for create-react-app */
+#__next /* for Next.js */ {
+  /* height: 100%; */
+  /* height: 100dvh; */
+  /* min-height: -webkit-fill-available; */
+}
+
+::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #a9a9a9;
+}
+:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #a9a9a9;
+  opacity: 1;
+}
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #a9a9a9;
+  opacity: 1;
+}
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #a9a9a9;
+}
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #a9a9a9;
+}
+
+::placeholder {
+  /* Most modern browsers support this now. */
+  color: #a9a9a9;
+}
+
 #root {
   width: 100%;
-  min-height: 100dvh;
 }

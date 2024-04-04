@@ -1,5 +1,33 @@
+.wrapper {
+  height: 100dvh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "nav"
+    "body"
+    "footer";
+  padding: 24px;
+}
+
 .navbar {
+  grid-area: "nav";
+  display: flex;
+  /* align-items: center; */
+  gap: 16px;
+}
+
+.messages {
+  grid-area: "body";
+  padding-top: 24px;
+}
+
+.backButton {
   display: flex;
   align-items: center;
-  gap: 16px;
+  margin-left: -8px;
+}
+
+.newMessageForm {
+  grid-area: "footer";
 }

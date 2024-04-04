@@ -2,4 +2,12 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  color: var(--color-primary);
+  padding-bottom: 24px;
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }

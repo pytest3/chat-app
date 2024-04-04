@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import styles from "./SignupButton.module.css";
 
 export default function SignupButton(props) {
   const { loginWithRedirect } = useAuth0();
@@ -12,5 +13,7 @@ export default function SignupButton(props) {
     });
   }
 
-  return <button {...props} onClick={handleClick}></button>;
+  return (
+    <button {...props} onClick={handleClick} className={styles.button}></button>
+  );
 }
