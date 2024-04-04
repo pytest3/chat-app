@@ -73,6 +73,7 @@ const UserList = React.memo(function UserList() {
       {JSON.stringify(allUsers, null, 4)} */}
       {allUsers
         .filter((i) => !onlineUsersAuthIds.includes(i.auth0_id))
+        .filter((i) => i.name !== "John" && i.name !== "Mary")
         .map((user) => {
           return (
             <li

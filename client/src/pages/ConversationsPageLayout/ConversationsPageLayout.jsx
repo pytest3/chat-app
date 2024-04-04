@@ -15,7 +15,7 @@
 //   console.log("conversationPageLayout effect ran", socket.id);
 //   socket.connect();
 //   socket.on("connect_error", errorHandler);
-//   return () => {
+//   return () => {g
 //     socket.off("connect_error", errorHandler);
 //     socket.disconnect();
 //   };
