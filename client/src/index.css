@@ -58,19 +58,11 @@ h6 {
   isolation: isolate;
 }
 
-::-webkit-calendar-picker-indicator {
-  filter: invert(90%) sepia(10%) saturate(149%) hue-rotate(169deg)
-    brightness(95%) contrast(89%);
-  /* height: 20px;
-  width: 20px; */
-}
-
 :root {
   --max-width: 450px;
 
   --color-background: #172c66;
   --color-paragraph: #fef6e4;
-
   --color-primary: #f582ae;
 
   /* --color-primary: #f2ecec; */
