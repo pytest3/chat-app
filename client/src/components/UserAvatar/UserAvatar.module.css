@@ -1,0 +1,8 @@
+.userAvatar {
+  border-radius: 100%;
+  width: 45px;
+  aspect-ratio: 1/1;
+  border: 1px solid rgba(115, 127, 138, 0.6);
+  display: grid;
+  place-content: center;
+}

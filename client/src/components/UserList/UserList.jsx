@@ -1,12 +1,13 @@
 import React from "react";
-import { SocketContext } from "../SocketContextProvider/SocketContextProvider";
+import { SocketContext } from "../SocketContextProvider";
 import useCreateConversation from "../../hooks/useCreateConversation.jsx";
 import { useNavigate } from "react-router-dom";
-import LoadingSpinner from "../LoadingSpinner/LoadingSpinner.jsx";
+import LoadingSpinner from "../LoadingSpinner";
 import { useAuth0 } from "@auth0/auth0-react";
 import socket from "../../socket.js";
 import useFetchAllUsers from "../../hooks/useFetchAllUsers.jsx";
 import styles from "./UserList.module.css";
+import UserCard from "../UserCard/UserCard.jsx";
 
 const UserList = React.memo(function UserList() {
   const navigate = useNavigate();
@@ -59,9 +60,10 @@ const UserList = React.memo(function UserList() {
                     handleClick({ username, socketId, sub });
                   }}
                 >
-                  {username === currentUser.username
-                    ? `${username} (yourself)`
-                    : username}
+                  <UserCard
+                    name={username}
+                    currentUserName={currentUser.username}
+                  />
                 </div>
                 {/* <div>{JSON.stringify(user, null, 4)}</div> */}
               </li>
@@ -81,18 +83,18 @@ const UserList = React.memo(function UserList() {
             .filter((i) => i.name !== "John" && i.name !== "Mary") // filter out seeded users
             .map((user) => {
               return (
-                <li
-                  key={user.id}
-                  onClick={() => {
-                    handleClick({
-                      username: user.name,
-                      // TODO remove socketId as not used
-                      socketId: "",
-                      sub: user.auth0_id,
-                    });
-                  }}
-                >
-                  {user.name}
+                <li key={user.id}>
+                  <UserCard
+                    name={user.name}
+                    onClick={() => {
+                      handleClick({
+                        username: user.name,
+                        // TODO remove socketId as not used
+                        socketId: "",
+                        sub: user.auth0_id,
+                      });
+                    }}
+                  />
                 </li>
               );
             })}

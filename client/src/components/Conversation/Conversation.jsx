@@ -7,7 +7,7 @@ import socket from "../../socket";
 import useGetSelectedUser from "../../hooks/useGetSelectedUser";
 import { SocketContext } from "../SocketContextProvider/SocketContextProvider";
 import { ChevronLeft } from "lucide-react";
-import styles from "./conversation.module.css";
+import styles from "./Conversation.module.css";
 import { CurrentUserContext } from "../CurrentUserContextProvider";
 
 const Conversation = React.memo(function Conversation() {
