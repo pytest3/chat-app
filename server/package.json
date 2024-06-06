@@ -17,8 +17,7 @@
     "@babel/node": "^7.23.9",
     "@babel/preset-env": "^7.23.9",
     "@flydotio/dockerfile": "^0.5.4",
-    "nodemon": "^3.0.3",
-    "sequelize-cli": "^6.6.2"
+    "nodemon": "^3.0.3"
   },
   "dependencies": {
     "body-parser": "^1.20.2",

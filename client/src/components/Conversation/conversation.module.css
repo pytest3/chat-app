@@ -8,6 +8,7 @@
     "body"
     "footer";
   padding: 24px;
+  gap: 18px;
 }
 
 .navbar {
@@ -19,7 +20,9 @@
 
 .messages {
   grid-area: "body";
-  padding-top: 24px;
+  padding-right: 8px;
+  /* min-height: 0; */
+  overflow: scroll;
 }
 
 .backButton {

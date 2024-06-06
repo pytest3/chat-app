@@ -8,6 +8,8 @@ const http = require("http");
 const { auth } = require("express-oauth2-jwt-bearer");
 const { Server } = require("socket.io");
 
+// TODO clear and restart db
+
 const host = "0.0.0.0";
 const port = process.env.PORT || 3000;
 
