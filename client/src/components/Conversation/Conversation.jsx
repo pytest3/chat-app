@@ -17,6 +17,7 @@ const Conversation = React.memo(function Conversation() {
   const selectedUser = useGetSelectedUser();
   const { onlineUsers } = React.useContext(SocketContext);
   const currentUser = React.useContext(CurrentUserContext);
+  const lastMessageRef = React.useRef();
 
   const shownMessages = messages.map((message) => {
     if (message.fromSelf === true && message.toUser === selectedUser.username)
@@ -44,6 +45,15 @@ const Conversation = React.memo(function Conversation() {
         </div>
       );
   });
+
+  // auto-scroll to last message
+  React.useEffect(() => {
+    const lastMessageNode = lastMessageRef.current;
+    if (!lastMessageNode) {
+      return;
+    }
+    lastMessageNode.scrollIntoView({ behavior: "smooth" });
+  }, [shownMessages]);
 
   // register 'on private conversation' socketIO handler
   React.useEffect(() => {
@@ -95,7 +105,10 @@ const Conversation = React.memo(function Conversation() {
         <h3>{selectedUser.username}</h3>
       </nav>
       {/* <div>{JSON.stringify(messages, null, 4)}</div> */}
-      <div className={styles.messages}>{shownMessages}</div>
+      <div className={styles.messages}>
+        {shownMessages}
+        <div ref={lastMessageRef}></div>
+      </div>
       <NewMessageForm
         className={styles.newMessageForm}
         messages={messages}

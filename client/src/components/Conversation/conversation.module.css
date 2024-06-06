@@ -23,6 +23,7 @@
   padding-right: 8px;
   /* min-height: 0; */
   overflow: scroll;
+  border: 1px solid red;
 }
 
 .backButton {
